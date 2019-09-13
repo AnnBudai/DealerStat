@@ -4,9 +4,11 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -16,8 +18,12 @@ public class User implements UserDetails {
     private Integer id;
     private String first_name;
     private String last_name;
+    @NotBlank(message = "Username cannot be empty")
     private String username;
+    @NotBlank(message = "Password cannot be empty")
     private String password;
+    @Email(message = "Email is not correct")
+    @NotBlank(message = "Email cannot be empty")
     private String email;
 
     private LocalDate create_at;
@@ -29,6 +35,22 @@ public class User implements UserDetails {
     @CollectionTable()
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<GameObject> gameObject;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id.equals(user.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 
     public boolean isActive() {
         return active;
@@ -128,7 +150,7 @@ public class User implements UserDetails {
         return isActive();
     }
 
-    public boolean isAdmin(){
+    public boolean isAdmin() {
         return roles.contains(Role.Admin);
     }
 
@@ -138,5 +160,13 @@ public class User implements UserDetails {
 
     public void setActivationCode(String activationCode) {
         this.activationCode = activationCode;
+    }
+
+    public Set<GameObject> getGameObject() {
+        return gameObject;
+    }
+
+    public void setGameObject(Set<GameObject> gameObject) {
+        this.gameObject = gameObject;
     }
 }

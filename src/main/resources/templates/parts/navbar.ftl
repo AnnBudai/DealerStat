@@ -13,9 +13,14 @@
             <li class="nav-item">
                 <a class="nav-link" href="/">Home</a>
             </li>
-            <li class="nav-item">
+            <#if user??>
+                <li class="nav-item">
                 <a class="nav-link" href="/main">Game objects</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/user-gameObject/${currentUserId}">My game objects</a>
+            </li>
+            </#if>
             <#if isAdmin>
                 <li class="nav-item">
                     <a class="nav-link" href="/user">User list</a>

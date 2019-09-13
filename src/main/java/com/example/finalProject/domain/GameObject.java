@@ -1,6 +1,9 @@
 package com.example.finalProject.domain;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 
 @Entity
@@ -9,7 +12,9 @@ public class GameObject {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotBlank(message = "Please, add a game object title")
     private String title;
+    @Length(max = 255, message = "Description of game object too long")
     private String text;
     private Status status;
     private LocalDate created_at;
