@@ -11,7 +11,7 @@
         </div>
     </div>
 
-    <#include "parts/gameObjectEdit.ftl"/>
+    <#include "parts/gameObject.ftl"/>
     <#include "parts/gameObjectList.ftl"/>
 
 </@c.page>

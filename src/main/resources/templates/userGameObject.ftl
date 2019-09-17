@@ -1,7 +1,7 @@
 <#import "parts/common.ftl" as c>
 
 <@c.page>
-    <#if isCurrentUser>
+    <#if isCurrentUser && gameObject??>
         <#include "parts/gameObjectEdit.ftl"/>
     </#if>
     <#include "parts/gameObjectList.ftl"/>

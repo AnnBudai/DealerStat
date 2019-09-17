@@ -12,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,7 +21,6 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Map;
-import java.util.Set;
 import java.util.UUID;
 
 @Controller
@@ -73,19 +71,7 @@ public class MainController {
             model.mergeAttributes(errorsMap);
             model.addAttribute("gameObject", gameObject);
         } else {
-            if (file != null && !file.getOriginalFilename().isEmpty()) {
-                File uploadDir = new File(uploadPath);
-
-                if (!uploadDir.exists()) {
-                    uploadDir.mkdir();
-                }
-
-                String uuidFile = UUID.randomUUID().toString();
-                String resultFilename = uuidFile + "." + file.getOriginalFilename();
-                file.transferTo(new File(uploadPath + "/" + resultFilename));
-
-                gameObject.setFilename(resultFilename);
-            }
+            saveFile(gameObject, file);
             model.addAttribute("gameObject", null);
             gameObjectRepository.save(gameObject);
         }
@@ -95,16 +81,24 @@ public class MainController {
         return "main";
     }
 
-    @GetMapping("/user-gameObject/{user}")
-    public String userGameObject(@AuthenticationPrincipal User currentUser, @PathVariable User user, Model model,
-                                 @RequestParam(required = false) GameObject gameObject) {
-        Set<GameObject> gameObjects = user.getGameObject();
+    private void saveFile(@Valid GameObject gameObject, @RequestParam("file") MultipartFile file) throws IOException {
+        save(gameObject, file, uploadPath);
+    }
 
-        model.addAttribute("GameObjects", gameObjects);
-        model.addAttribute("gameObject", gameObject);
-        model.addAttribute("isCurrentUser", currentUser.equals(user));
+    static void save(@Valid GameObject gameObject, @RequestParam("file") MultipartFile file, String uploadPath) throws IOException {
+        if (file != null && !file.getOriginalFilename().isEmpty()) {
+            File uploadDir = new File(uploadPath);
 
-        return "userGameObject";
+            if (!uploadDir.exists()) {
+                uploadDir.mkdir();
+            }
+
+            String uuidFile = UUID.randomUUID().toString();
+            String resultFilename = uuidFile + "." + file.getOriginalFilename();
+            file.transferTo(new File(uploadPath + "/" + resultFilename));
+
+            gameObject.setFilename(resultFilename);
+        }
     }
 }
 

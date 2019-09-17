@@ -37,9 +37,8 @@
                     </div>
                 </div>
                 <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-                <input type="hidden" name="id" value="<#if gameObject??>${gameObject.id}</#if>"/>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Save game object</button>
+                    <button type="submit" class="btn btn-primary">Add game object</button>
                 </div>
             </form>
         </div>

@@ -4,6 +4,7 @@ CREATE TABLE comment (
   create_at date,
   message varchar(255),
   user_id int(11),
+  game_object_id int(11),
   PRIMARY KEY (id)
 )engine=MyISAM;
 
@@ -59,3 +60,7 @@ alter table comment
 alter table game_object
     add constraint game_fk
     foreign key (game_id) references game(id);
+
+alter table comment
+    add constraint comment_game_object_fk
+    foreign key (game_object_id) references game_object(id);

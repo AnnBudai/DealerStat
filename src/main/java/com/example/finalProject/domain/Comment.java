@@ -1,6 +1,7 @@
 package com.example.finalProject.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 
 @Entity
@@ -9,6 +10,7 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotBlank(message = "Please, add a message")
     private String message;
     private LocalDate create_at;
     private boolean approved;
@@ -17,12 +19,9 @@ public class Comment {
     @JoinColumn()
     private User user;
 
-    public Comment(User user, String message, LocalDate create_at) {
-        this.user = user;
-        this.message = message;
-        this.create_at = create_at;
-        this.approved = true;
-    }
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn()
+    private GameObject gameObject;
 
     public Comment() {
 
@@ -66,5 +65,17 @@ public class Comment {
 
     public void setApproved(boolean approved) {
         this.approved = approved;
+    }
+
+    public boolean isApproved() {
+        return approved;
+    }
+
+    public GameObject getGameObject() {
+        return gameObject;
+    }
+
+    public void setGameObject(GameObject gameObject) {
+        this.gameObject = gameObject;
     }
 }

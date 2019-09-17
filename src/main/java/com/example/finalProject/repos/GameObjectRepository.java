@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface GameObjectRepository extends CrudRepository<GameObject, Long> {
+public interface GameObjectRepository extends CrudRepository<GameObject, Integer> {
     @Query("SELECT v FROM GameObject v WHERE v.title=:title")
     List<GameObject> findByTitle(String title);
 }

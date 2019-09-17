@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.Length;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 public class GameObject {
@@ -28,17 +29,10 @@ public class GameObject {
     @JoinColumn()
     private Game game;
 
-    private String filename;
+    @OneToMany(mappedBy = "gameObject", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Comment> comment;
 
-    public GameObject(String title, String text, User user, Game game) {
-        this.title = title;
-        this.text = text;
-        this.user = user;
-        this.game = game;
-        this.status = Status.Active;
-        this.created_at = LocalDate.now();
-        this.updated_at = LocalDate.now();
-    }
+    private String filename;
 
     public GameObject() {
 
@@ -116,5 +110,13 @@ public class GameObject {
 
     public void setFilename(String filename) {
         this.filename = filename;
+    }
+
+    public Set<Comment> getComment() {
+        return comment;
+    }
+
+    public void setComment(Set<Comment> comment) {
+        this.comment = comment;
     }
 }

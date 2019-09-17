@@ -2,7 +2,6 @@ package com.example.finalProject.controller;
 
 import com.example.finalProject.domain.User;
 import com.example.finalProject.service.UserService;
-import freemarker.template.utility.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
