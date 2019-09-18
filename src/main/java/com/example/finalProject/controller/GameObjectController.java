@@ -52,7 +52,6 @@ public class GameObjectController {
                                    @RequestParam("file") MultipartFile file, @RequestParam("id") GameObject gameObject)
             throws IOException {
         if (gameObject.getUser().equals(currentUser)) {
-
             Game game = new Game(game_name);
             Game gameDB = gameRepository.findByName(game_name);
             if (gameDB == null) {
@@ -66,6 +65,7 @@ public class GameObjectController {
             if (!StringUtils.isEmpty(text)) {
                 gameObject.setText(text);
             }
+
             gameObject.setGame(gameRepository.findByName(game_name));
             saveFile(gameObject, file);
             gameObject.setUpdated_at(LocalDate.now());

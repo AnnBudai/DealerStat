@@ -31,6 +31,7 @@ public class CommentController {
 
         model.addAttribute("comments", comments);
         model.addAttribute("comment", comment);
+
         return "comment";
     }
 
@@ -49,11 +50,12 @@ public class CommentController {
             model.addAttribute("comment", comment);
         } else {
             model.addAttribute("comment", null);
+
             commentRepository.save(comment);
         }
 
         model.addAttribute("comment", comment);
+
         return "redirect:/comment/" + gameObject;
     }
-
 }

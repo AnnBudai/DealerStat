@@ -7,7 +7,8 @@
         <div class="form-group row">
             <label class="col-sm-2 col-form-label"> First name: </label>
             <div class="col-sm-6">
-                <input type="text" name="first_name" class="form-control" placeholder="First name" value="${first_name!}"/>
+                <input type="text" name="first_name" class="form-control" placeholder="First name"
+                       value="${first_name!}"/>
             </div>
         </div>
         <div class="form-group row">
@@ -25,7 +26,8 @@
         <div class="form-group row">
             <label class="col-sm-2 col-form-label"> Password: </label>
             <div class="col-sm-6">
-                <input type="password" name="password" class="form-control" placeholder="Password" value="${password!}"/>
+                <input type="password" name="password" class="form-control" placeholder="Password"
+                       value="${password!}"/>
             </div>
         </div>
         <input type="hidden" name="_csrf" value="${_csrf.token}"/>

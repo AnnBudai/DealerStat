@@ -12,6 +12,7 @@ public class Comment {
 
     @NotBlank(message = "Please, add a message")
     private String message;
+
     private LocalDate create_at;
     private boolean approved;
 

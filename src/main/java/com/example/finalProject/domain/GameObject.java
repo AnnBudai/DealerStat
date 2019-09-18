@@ -15,9 +15,10 @@ public class GameObject {
 
     @NotBlank(message = "Please, add a game object title")
     private String title;
+
     @Length(max = 255, message = "Description of game object too long")
     private String text;
-    private Status status;
+
     private LocalDate created_at;
     private LocalDate updated_at;
 
@@ -62,14 +63,6 @@ public class GameObject {
     public void setText(String text) {
         this.text = text;
         updated_at = LocalDate.now();
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
     }
 
     public LocalDate getCreated_at() {

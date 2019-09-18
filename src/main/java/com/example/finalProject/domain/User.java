@@ -16,12 +16,16 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     private String first_name;
     private String last_name;
+
     @NotBlank(message = "Username cannot be empty")
     private String username;
+
     @NotBlank(message = "Password cannot be empty")
     private String password;
+
     @Email(message = "Email is not correct")
     @NotBlank(message = "Email cannot be empty")
     private String email;
@@ -44,9 +48,15 @@ public class User implements UserDetails {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
         User user = (User) o;
+
         return Objects.equals(id, user.id);
     }
 

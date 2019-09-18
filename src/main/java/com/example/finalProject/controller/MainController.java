@@ -42,13 +42,16 @@ public class MainController {
     @GetMapping("/main")
     public String main(@RequestParam(required = false, defaultValue = "") String title, Model model) {
         Iterable<GameObject> gameObjects;
+
         if (title != null && !title.isEmpty()) {
             gameObjects = gameObjectRepository.findByTitle(title);
         } else {
             gameObjects = gameObjectRepository.findAll();
         }
+
         model.addAttribute("gameObjects", gameObjects);
         model.addAttribute("title", title);
+
         return "main";
     }
 
@@ -61,6 +64,7 @@ public class MainController {
         if (gameDB == null) {
             gameRepository.save(game);
         }
+
         gameObject.setUser(user);
         gameObject.setGame(gameRepository.findByName(game_name));
         gameObject.setCreated_at(LocalDate.now());
@@ -72,12 +76,16 @@ public class MainController {
             model.addAttribute("gameObject", gameObject);
         } else {
             saveFile(gameObject, file);
+
             model.addAttribute("gameObject", null);
+
             gameObjectRepository.save(gameObject);
         }
 
         Iterable<GameObject> gameObjects = gameObjectRepository.findAll();
+
         model.addAttribute("gameObjects", gameObjects);
+
         return "main";
     }
 

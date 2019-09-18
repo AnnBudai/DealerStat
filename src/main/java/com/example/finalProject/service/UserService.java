@@ -33,6 +33,7 @@ public class UserService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("User not found!");
         }
+
         return user;
     }
 
@@ -41,6 +42,7 @@ public class UserService implements UserDetailsService {
         if (userFromDb != null) {
             return false;
         }
+
         user.setActive(true);
         user.setCreate_at(LocalDate.now());
         user.setRoles(Collections.singleton(Role.Trader));
@@ -117,6 +119,7 @@ public class UserService implements UserDetailsService {
         if (!StringUtils.isEmpty(password)) {
             user.setPassword(password);
         }
+
         user.setFirst_name(first_name);
         user.setLast_name(last_name);
 

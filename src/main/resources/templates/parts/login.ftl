@@ -26,7 +26,7 @@
             </div>
         </div>
         <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-        <button class="btn btn-primary" type="submit"> Sign In</button>
+        <button class="btn btn-primary" type="submit">Sign In</button>
         <div><a href="/registration">Add new user</a></div>
     </form>
 </#macro>
@@ -115,6 +115,6 @@
 <#macro logout>
     <form action="/logout" method="post">
         <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-        <button class="btn btn-primary" type="submit"> Sign Out</button>
+        <button class="btn btn-primary" type="submit">Sign Out</button>
     </form>
 </#macro>

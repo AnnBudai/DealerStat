@@ -28,23 +28,25 @@ public class RegistrationController {
     @PostMapping("/registration")
     public String addUser(@RequestParam("password2") String passwordConfirm, @Valid User user, BindingResult bindingResult, Model model) {
         boolean isConfirmEmpty = StringUtils.isEmpty(passwordConfirm);
-        if (isConfirmEmpty){
+        if (isConfirmEmpty) {
             model.addAttribute("password2Error", "Password confirmation cannot be empty");
         }
 
-        if (user.getPassword()!= null && !user.getPassword().equals(passwordConfirm)){
+        if (user.getPassword() != null && !user.getPassword().equals(passwordConfirm)) {
             model.addAttribute("passwordError", "Passwords are difference!");
         }
 
-        if (isConfirmEmpty || bindingResult.hasErrors()){
+        if (isConfirmEmpty || bindingResult.hasErrors()) {
             Map<String, String> errors = ControllerUtils.getErrors(bindingResult);
 
             model.mergeAttributes(errors);
 
             return "registration";
         }
+
         if (!userService.addUser(user)) {
             model.addAttribute("usernameError", "User exists!");
+
             return "registration";
         }
 
